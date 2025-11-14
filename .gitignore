@@ -1,0 +1,8 @@
+/var/*
+!/var/.gitignore
+/vendor/
+/node_modules/
+.env.local
+.idea/
+.vscode/
+.DS_Store
