@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+/.github export-ignore
+/public/storage export-ignore
+/storage/*.key export-ignore
+/vendor export-ignore
