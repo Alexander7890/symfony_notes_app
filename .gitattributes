@@ -1,0 +1,7 @@
+* text=auto
+*.blade.php diff
+*.php diff
+/public/hot export-ignore
+/public/storage export-ignore
+/storage export-ignore
+/vendor export-ignore

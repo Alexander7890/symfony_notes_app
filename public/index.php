@@ -1,23 +1,18 @@
 <?php
 
-use App\Kernel;
-use Symfony\Component\Dotenv\Dotenv;
-use Symfony\Component\ErrorHandler\Debug;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Http\Request;
 
-require dirname(__DIR__) . '/vendor/autoload.php';
+define('LARAVEL_START', microtime(true));
 
-if (class_exists(Dotenv::class)) {
-    (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
-}
+require __DIR__.'/../vendor/autoload.php';
 
-if ($_SERVER['APP_DEBUG']) {
-    umask(0000);
-    Debug::enable();
-}
+$app = require_once __DIR__.'/../bootstrap/app.php';
 
-$kernel = new Kernel($_SERVER['APP_ENV'] ?? 'dev', (bool) ($_SERVER['APP_DEBUG'] ?? true));
-$request = Request::createFromGlobals();
-$response = $kernel->handle($request);
-$response->send();
+$kernel = $app->make(Kernel::class);
+
+$response = $kernel->handle(
+    $request = Request::capture()
+)->send();
+
 $kernel->terminate($request, $response);
